@@ -1,0 +1,96 @@
+---
+title: "Problems and Solutions to Compile a PDF Version of Advanced R"
+author: "Jiaqi Chang"
+date: "2020/3/20"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+During the building process, I've met several problems.Next I will list my efforts and my problems.
+
+## Efforts
+1.In order to compile Advanced R into a PDF, I installed the Texlive and Rmarkdown packages  before compiling (Note: added a path in the system settings).
+
+2.upgrade RStudio and installed packages to the latest version.
+
+3.Download the missing package. The packages I installed during the process are *bookdown*, *htmltools*, *caTools*, *bitops*, *rmarkdown*, *dplyr*, *tinytex*, etc. Use `install.packages()` to solve this kind of problem.
+
+4.Download MiKTeX and Texmaker. I failed when configuring the environment. Later I found out that the reason was that I could not connect to the server outside the country.
+
+5.Download texlive2019.iso and TeXstudio. Then I can compile the PDF version.
+
+
+## Problems&Solutions
+
+### Unable to load devtools package
+
+
+```{r eval=FALSE}
+
+install.packages("devtools")
+
+```
+
+### Failed to install "emo" from Github:
+
+```{r fig.align='center'}
+
+knitr::include_graphics("C:/Users/dell/Desktop/adv-r/error/2.PNG")
+
+```
+
+
+
+To solve this problem,I executed the following command in Git.
+
+```{r eval=FALSE}
+
+$ git config --global http.sslBackend "openssl"
+
+$ git config --global http.sslCAInfo E:/R/R-3.6.1/library/openssl/cacert.pem 
+
+```
+
+### Quitting from lines 223-235(Introduction.Rmd)
+
+
+
+Adding'encoding = "UTF-8"' in line 224 can fix it.
+
+```{r eval=FALSE}
+
+contributors <- read.csv("contributors.csv", stringsAsFactors = FALSE,encoding = "UTF-8")
+
+```
+
+
+
+### Quitting from lines 233-234(Perf-measure.Rmd)
+
+
+
+```{r eval=FALSE}
+
+install.packages("ggbeeswarm")
+
+```
+
+
+
+### 'make' not found
+
+Quitting from lines 77-84(Rcpp.Rmd)
+
+
+
+I added `C:\Rtools\bin\` to the path of the environment variable of the computer system, but the error still occurred, so I reinstalled `Rtools` and successfully solved this problem.
+
+
+
+### Font
+
+I downloaded the font 'andalemono'and'inconsolata'from the internet and install.
+
+
+After solving these problems, the book was successfully built.
